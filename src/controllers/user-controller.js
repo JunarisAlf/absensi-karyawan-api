@@ -1,18 +1,18 @@
-const User = require('../db/models/user-model')
+const UserModel = require('../db/models/user-model')
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
 module.exports = class userController{
     static async createAdmin(req, res){
         const {number, fullName, password} = req.body
-        const data = new User({
+        const user = new UserModel({
             number: number,
             fullName: fullName,
             password: await bcrypt.hash(password, 10),
             role: 'admin'
         })
         try {
-            const dataToSave = await data.save();
+            await user.save();
             res.status(201).json({
                 message: "User created!"
             })
@@ -23,14 +23,14 @@ module.exports = class userController{
     }
     static async createEmploye(req, res){
         const {number, fullName, password} = req.body
-        const data = new User({
+        const user = new UserModel({
             number: number,
             fullName: fullName,
             password: await bcrypt.hash(password, 10),
             role: 'employe'
         })
         try {
-            const dataToSave = await data.save();
+            await user.save();
             res.status(201).json({
                 message: "User created!"
             })
@@ -42,7 +42,7 @@ module.exports = class userController{
 
     static async login(req, res){
         const {number, password} = req.body
-        const logedUser = await User.findOne({number: number}).exec()
+        const logedUser = await UserModel.findOne({number: number}).exec()
         if(!logedUser){
             return res.status(400).json({message: "User Not Found!"})
         }

@@ -7,10 +7,10 @@ module.exports = mongoose.model('WorkDay', new mongoose.Schema({
     },
     start_time: {
         required: true,
-        type: String
+        type: Date
     },
     end_time: {
         required: true,
-        type: String
+        type: Date
     }
 }, {collection: "workDays"}))
