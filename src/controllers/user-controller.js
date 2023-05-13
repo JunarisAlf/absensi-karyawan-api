@@ -52,7 +52,7 @@ module.exports = class userController{
         }
         return res.status(200).json({
             message: "Login Success!",
-            jwt: jwt.sign({number: number, role: logedUser.role}, process.env.SECRET_KEY, { expiresIn: '1h' })
+            jwt: jwt.sign({number: number, role: logedUser.role}, process.env.SECRET_KEY, { expiresIn: '24h' })
         })
 
     }
