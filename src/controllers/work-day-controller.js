@@ -20,8 +20,8 @@ module.exports = class workDayController{
                 return {
                     date,
                     employe: employe.number,
-                    checkIn: Date.now(),
-                    checkOut: Date.now(),
+                    checkIn: '',
+                    checkOut: '',
                     status: 'alpha'
                 }
             }) 

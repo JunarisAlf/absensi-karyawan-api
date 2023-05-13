@@ -11,11 +11,9 @@ module.exports = mongoose.model('Absensi', new mongoose.Schema({
         ref: 'User'
     },
    checkIn: {
-        required: true,
         type: Date
    },
    checkOut: {
-        required: true,
         type: Date
     },
     status: {

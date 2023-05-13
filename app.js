@@ -18,7 +18,6 @@ db.once('connected', () => {
     console.log('Database Connected');
 })
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(router)
