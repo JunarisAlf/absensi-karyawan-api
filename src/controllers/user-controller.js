@@ -2,7 +2,7 @@ const User = require('../db/models/user-model')
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
-module.exports = class UserController{
+module.exports = class userController{
     static async createAdmin(req, res){
         const {number, fullName, password} = req.body
         const data = new User({

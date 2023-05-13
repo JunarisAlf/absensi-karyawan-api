@@ -9,9 +9,11 @@ module.exports = async function (req, res, next) {
         if (token.length !== 2) return res.status(400).json({message: "Invalid Token!"});
 
         const {number, role} = jwt.verify(token[1], process.env.SECRET_KEY);
-        if (role != 'admin') return res.status(401).json({message: "Unauthorized!"});
+        
+        if (role != 'employe') return res.status(401).json({message: "Unauthorized!"});
         const user = await User.findOne({number: number}).exec()
         if (!user) return res.status(401).json({message: "Unauthorized!"});
+
         req.user = {number, role};
         next();
     } catch (err) {
