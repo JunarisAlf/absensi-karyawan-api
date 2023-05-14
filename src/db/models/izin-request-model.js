@@ -5,7 +5,15 @@ module.exports = mongoose.model('IzinRequest', new mongoose.Schema({
         type: String,
         ref: 'User'
     },
-    requestDate: {
+    fullName: {
+        required: true,
+        type: String
+    },
+    startDate: {
+        required: true,
+        type: Date,
+    },
+    endDate: {
         required: true,
         type: Date,
     },
