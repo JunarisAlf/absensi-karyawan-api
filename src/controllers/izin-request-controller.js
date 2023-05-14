@@ -25,9 +25,34 @@ module.exports = class izinRequestController{
             res.status(500).json({message: error.message})
         }
     }
+    static async update(req, res){
+        const {start_date, end_date, note} = req.body
+        const id = req.params.id
+        try{
+            const izinRequest = await izinRequestModel.findOne({_id: id})
+
+            if(izinRequest.status != 'processed') return res.status(400).json({message: "Can't update, because has been processed by admin"})
+            //if status still 'processed' do updated
+            await izinRequestModel.updateOne({_id: id}, {
+                startDate: moment(start_date, 'DD-MM-YY'),
+                endDate: moment(end_date, 'DD-MM-YY'),
+                note,
+            })
+            return res.status(201).json({message: "Request has been updated"})
+        }catch(error){
+            res.status(500).json({message: error.message})
+        }
+    }
+
     static async getAllRequest(req, res){
         try{
-            const izinRequest = await izinRequestModel.find()
+            let izinRequest;
+            if(req.user.role == 'employe'){
+                izinRequest = await izinRequestModel.find({employe: req.user.number})
+                console.log(req.user.number)
+            }else{
+                izinRequest = await izinRequestModel.find()
+            }
             return res.status(200).json({
                 message: "Success geting all request!",
                 data: izinRequest
@@ -53,7 +78,7 @@ module.exports = class izinRequestController{
         const id = req.params.id
         const status = req.body.isApproved ? 'approve' : 'reject'
         try {
-            const izinRequest = await izinRequestModel.findOneAndUpdate({_id: id}, {status})
+            await izinRequestModel.updateOne({_id: id}, {status})
             return res.status(200).json({message: "Success change status to "+status})
         }catch (error) {
             res.status(500).json({message: error.message})
