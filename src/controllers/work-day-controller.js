@@ -55,9 +55,29 @@ module.exports = class workDayController{
         }
         catch (error) {
             console.error('Transaction failed. Error:', error);
-            res.status(400).json({message: error.message})
+            res.status(500).json({message: error.message})
         } finally {
             session.endSession();
+        }
+    }
+    static async workDayHistory(req, res){
+        try {
+            const workDays = await workDayModel.find()
+            const result = workDays.map(d => {
+                return {
+                    id:d._id,
+                    date: d.date,
+                    start_time: moment(d.start_time).format("DD-MM-YYYY HH:mm:ss"),
+                    end_time: moment(d.end_time).format("DD-MM-YYYY HH:mm:ss"),
+                }
+            })
+            res.status(200).json({
+                message: "Succes geeting workday history!",
+                data: result
+            })
+        } catch (error) {
+            res.status(500).json({message: error.message})
+            
         }
     }
 }
