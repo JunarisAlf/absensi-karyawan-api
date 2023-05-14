@@ -13,8 +13,8 @@ module.exports = class izinRequestController{
             new izinRequestModel({
                 employe,
                 fullName,
-                startDate: moment(start_date, 'DD-MM-YYYY'),
-                endDate: moment(end_date, 'DD-MM-YYYY'),
+                startDate: moment(start_date, 'DD-MM-YYYY').startOf('Day').toDate(),
+                endDate: moment(end_date, 'DD-MM-YYYY').endOf('Day').toDate(),
                 note,
                 status: 'processed',
                 submissionDate,

@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 module.exports = mongoose.model('Absensi', new mongoose.Schema({
-    date: {
+    workDay: {
         required: true,
         type: String,
-        ref: 'DayWork'
+        ref: 'WorkDay'
+    },
+    date: {
+        required: true,
+        type: Date
     },
     employe: {
         required: true,

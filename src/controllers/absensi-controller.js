@@ -16,11 +16,11 @@ module.exports = class absensiController{
         if (!isSameDate) return res.status(400).json({message: "Out Of Date!"})
        
         //check if user already absensi or not
-        const absensi = await AbsensiModel.findOne({employe, date})
+        const absensi = await AbsensiModel.findOne({employe, workDay: date})
         if(absensi.checkIn != null || absensi.status == 'izin') return res.status(400).json({message: "Can't CheckIn Because You Already CheckIn or Izin"}) 
 
         try {
-            await AbsensiModel.updateOne({employe, date}, {
+            await AbsensiModel.updateOne({employe, workDay: date}, {
                 checkIn: checkInTime,
             })
             res.status(201).json({
@@ -43,7 +43,7 @@ module.exports = class absensiController{
         if (!isSameDate) return res.status(400).json({message: "Out Of Date!"})
        
         //check if user already checkIn or not
-        const absensi = await AbsensiModel.findOne({employe, date})
+        const absensi = await AbsensiModel.findOne({employe, workDay: date})
         if(absensi.checkIn == null ) return res.status(400).json({message: "You are not check in yet!"}) //check in before checkout
         //check if user already checkOut or not
         if(absensi.checkOut != null ) return res.status(400).json({message: "You are already check out!"})
@@ -59,7 +59,7 @@ module.exports = class absensiController{
         const isEarlyCheckOut = checkOutTime.isBefore(end_time) // go home early or not?
         status = isLateCheckIn || isEarlyCheckOut ? 'notOnTime' : 'hadir'
         try {
-            await AbsensiModel.updateOne({employe, date}, {
+            await AbsensiModel.updateOne({employe, workDay: date}, {
                 checkOut: checkOutTime,
                 status
             })

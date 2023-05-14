@@ -10,6 +10,7 @@ module.exports = class workDayController{
         const date = req.body.date
         const start_time = moment(req.body.start_time, "DD-MM-YYYY HH:mm:ss").toDate()
         const end_time = moment(req.body.end_time, "DD-MM-YYYY HH:mm:ss").toDate()
+
         const workDay = new workDayModel({
             date,
             start_time,
@@ -34,7 +35,8 @@ module.exports = class workDayController{
                         }
                     })
                     return {
-                        date,
+                        workDay: date,
+                        date: moment(date, 'DD-MM-YYYY').toDate(),
                         employe: employe.number,
                         checkIn: '',
                         checkOut: '',
@@ -43,7 +45,7 @@ module.exports = class workDayController{
                 }) 
                 //save workday
                 await workDay.save()
-                //create and set all employe absensi for this work day to alpha
+                // //create and set all employe absensi for this work day to alpha
                 await absensiModel.insertMany(absensi)
             });
             
