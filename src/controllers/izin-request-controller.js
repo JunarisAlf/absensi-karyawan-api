@@ -33,8 +33,8 @@ module.exports = class izinRequestController{
             if(izinRequest.status != 'processed') return res.status(400).json({message: "Can't update, because has been processed by admin"})
             //if status still 'processed' do updated
             await izinRequestModel.updateOne({_id: id}, {
-                startDate: moment(start_date, 'DD-MM-YY'),
-                endDate: moment(end_date, 'DD-MM-YY'),
+                startDate: moment(start_date, 'DD-MM-YYYY').startOf('Day').toDate(),
+                endDate: moment(end_date, 'DD-MM-YYYY').endOf('Day').toDate(),
                 note,
             })
             return res.status(201).json({message: "Request has been updated"})
@@ -63,27 +63,26 @@ module.exports = class izinRequestController{
             }else{
                 izinRequest = await izinRequestModel.find()
             }
+            const results = izinRequest.map(r => {
+                return {
+                    id:r._id,
+                    employe_name: r.fullName,
+                    start_date: moment(r.startDate).format("DD-MM-YY HH:mm:ss"),
+                    end_date: moment(r.endDate).format("DD-MM-YY HH:mm:ss"),
+                    note: r.note,
+                    status: r.status,
+                    submission_date: r.submissionDate
+                }
+            })
             return res.status(200).json({
                 message: "Success geting all request!",
-                data: izinRequest
+                data: results
             })
         }catch(error){
             res.status(500).json({message: error.message})
         }
     }
   
-    static async getOneRequest(req, res){
-        const id = req.params.id
-        try{
-            const izinRequest = await izinRequestModel.findOne({_id: id})
-            return res.status(200).json({
-                message: "Success geting data!",
-                data: izinRequest
-            })
-        }catch(error){
-            res.status(500).json({message: error.message})
-        }
-    }
     static async changeStatus(req, res){
         const id = req.params.id
         const status = req.body.isApproved ? 'approve' : 'reject'

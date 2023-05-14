@@ -43,6 +43,7 @@ module.exports = class workDayController{
                         status
                     }
                 }) 
+
                 //save workday
                 await workDay.save()
                 // //create and set all employe absensi for this work day to alpha
@@ -68,7 +69,7 @@ module.exports = class workDayController{
                     id:d._id,
                     date: d.date,
                     start_time: moment(d.start_time).format("DD-MM-YYYY HH:mm:ss"),
-                    end_time: moment(d.end_time).format("DD-MM-YYYY HH:mm:ss"),
+                    end_time:  moment(d.end_time).format("DD-MM-YYYY HH:mm:ss"),
                 }
             })
             res.status(200).json({

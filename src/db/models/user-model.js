@@ -18,4 +18,4 @@ module.exports = mongoose.model('User', new mongoose.Schema({
         type: String,
         enum: ['employe', 'admin']
     }
-}))
+}, {collection: 'users'}))

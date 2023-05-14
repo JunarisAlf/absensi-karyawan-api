@@ -78,8 +78,8 @@ module.exports = class absensiController{
                 return{
                     id: abs._id,
                     workDay: abs.workDay,
-                    checkIn: moment(abs.checkIn).format("DD-MM-YYYY HH:mm:ss"),
-                    checkOut: moment(abs.checkOut).format("DD-MM-YYYY HH:mm:ss"),
+                    checkIn: abs.checkIn == null ? "-" : moment(abs.checkIn).format("DD-MM-YYYY HH:mm:ss"),
+                    checkOut: abs.checkOut == null ? "-" : moment(abs.checkOut).format("DD-MM-YYYY HH:mm:ss"),
                     status: abs.status
                 }
             })

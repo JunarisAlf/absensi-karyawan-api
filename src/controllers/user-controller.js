@@ -1,6 +1,8 @@
 const UserModel = require('../db/models/user-model')
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
+const userModel = require('../db/models/user-model');
+const absensiModel = require('../db/models/absensi-model');
 
 module.exports = class userController{
     static async createAdmin(req, res){
@@ -56,4 +58,5 @@ module.exports = class userController{
         })
 
     }
+ 
 }

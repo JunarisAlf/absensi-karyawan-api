@@ -6,7 +6,6 @@ const authMiddleware = require('../middleware/auth-middleware');
 const router = require('express').Router();
 
 router.get('/', authMiddleware, izinRequestController.getAllRequest) //get all request
-router.get('/:id',adminMinddleware, izinRequestController.getOneRequest) //get One request by Admin
 router.patch('/:id',adminMinddleware, izinRequestController.changeStatus) //approval
 
 
