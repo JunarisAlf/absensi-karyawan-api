@@ -13,12 +13,11 @@ module.exports = class izinRequestController{
             new izinRequestModel({
                 employe,
                 fullName,
-                startDate: moment(start_date, 'DD-MM-YY'),
-                endDate: moment(end_date, 'DD-MM-YY'),
+                startDate: moment(start_date, 'DD-MM-YYYY'),
+                endDate: moment(end_date, 'DD-MM-YYYY'),
                 note,
                 status: 'processed',
                 submissionDate,
-                isDone: false
             }).save()
             return res.status(201).json({message: "Request has been send and processed!"})
         }catch(error){
@@ -43,7 +42,18 @@ module.exports = class izinRequestController{
             res.status(500).json({message: error.message})
         }
     }
+    static async delete(req, res){
+        const id = req.params.id
+        try {
+            const izinRequest = await izinRequestModel.findOne({_id: id})
+            if(izinRequest.status != 'processed') return res.status(400).json({message: "Can't delete, because has been processed by admin"})
 
+            await izinRequestModel.deleteOne({_id: id})
+            res.status(200).json({message: "Delete success!"})
+        } catch (error) {
+            res.status(500).json({message: error.message})
+        }
+    }
     static async getAllRequest(req, res){
         try{
             let izinRequest;

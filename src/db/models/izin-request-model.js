@@ -30,8 +30,5 @@ module.exports = mongoose.model('IzinRequest', new mongoose.Schema({
         required: true,
         type: Date,
     },
-    isDone: {
-        required: true,
-        type: Boolean
-    }
+
 }, {collection: 'izinRequests'}))

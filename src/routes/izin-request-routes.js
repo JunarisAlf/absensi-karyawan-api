@@ -12,6 +12,8 @@ router.patch('/:id',adminMinddleware, izinRequestController.changeStatus) //appr
 
 router.post('/',employeMiddleware, izinRequestController.create)
 router.put('/:id',employeMiddleware, izinRequestController.update)
+router.delete('/:id',employeMiddleware, izinRequestController.delete)
+
 
 
 
