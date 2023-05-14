@@ -71,4 +71,24 @@ module.exports = class absensiController{
             res.status(500).json({message: error.message})
         }
     }
+    static async history(req, res){
+        try {
+            const absensi = await AbsensiModel.find({employe: req.user.number})
+            const result = absensi.map(abs => {
+                return{
+                    id: abs._id,
+                    workDay: abs.workDay,
+                    checkIn: moment(abs.checkIn).format("DD-MM-YYYY HH:mm:ss"),
+                    checkOut: moment(abs.checkOut).format("DD-MM-YYYY HH:mm:ss"),
+                    status: abs.status
+                }
+            })
+            res.status(200).json({
+                message: "Success get absensi history!",
+                data: result
+            })
+        } catch (error) {
+            res.status(500).json({message: error.message})
+        }
+    }
 }
