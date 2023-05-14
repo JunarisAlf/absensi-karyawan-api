@@ -19,6 +19,14 @@ module.exports = class reportController{
                   }
                 },
                 {
+                    $lookup: {
+                        from: 'izinRequests',
+                        localField: 'number',
+                        foreignField: 'employe',
+                        as: 'izinRequests'
+                      } 
+                },
+                {
                   $project: {
                     fullName: 1,
                     number: 1,
@@ -77,6 +85,21 @@ module.exports = class reportController{
                                     {$eq: ['$$abs.status', 'izin']},
                                     { $gte: ['$$abs.date', start_date] },
                                     { $lte: ['$$abs.date', end_date] }
+                                ]
+                            }
+                          }
+                        }
+                    },
+                    rejected: {
+                        $size: {
+                          $filter: {
+                            input: '$izinRequests',
+                            as: 'req',
+                            cond: { 
+                                $and: [
+                                    { $eq: ['$$req.status', 'reject']},
+                                    { $gte: ['$$req.startDate', start_date] },
+                                    { $lte: ['$$req.startDate', end_date] }
                                 ]
                             }
                           }
