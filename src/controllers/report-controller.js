@@ -109,7 +109,10 @@ module.exports = class reportController{
                 }
               ])
               .then((result) => {
-                res.status(200).json(result);
+                res.status(200).json({
+                    message: "Success Generate Report",
+                    data: result
+                });
               })
               .catch((error) => {
                 res.status(500).json(error)

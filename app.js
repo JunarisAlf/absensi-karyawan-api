@@ -8,7 +8,8 @@ require('dotenv').config();
 const mongoString = process.env.MONGODB_URL
 mongoose.connect(mongoString, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    autoIndex: true, 
 });
 const db = mongoose.connection;
 db.on('error', (error) => {

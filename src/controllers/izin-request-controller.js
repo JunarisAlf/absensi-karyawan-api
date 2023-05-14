@@ -71,7 +71,7 @@ module.exports = class izinRequestController{
                     end_date: moment(r.endDate).format("DD-MM-YY HH:mm:ss"),
                     note: r.note,
                     status: r.status,
-                    submission_date: r.submissionDate
+                    submission_date: moment(r.submissionDate).format("DD-MM-YY HH:mm:ss")
                 }
             })
             return res.status(200).json({

@@ -1,0 +1,538 @@
+{
+	"info": {
+		"_postman_id": "3b32d5e7-fca1-4b15-8cfc-61ee7e85c746",
+		"name": "Absensi Karyawan",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16486976"
+	},
+	"item": [
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"number\": \"000001\",\r\n    \"password\": \"123123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/auth",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"number\": \"000003\",\r\n    \"fullName\": \"Employe 2\",\r\n    \"password\": \"123123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/employe",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"employe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"number\": \"000001\",\r\n    \"fullName\": \"Admin\",\r\n    \"password\": \"123123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/admin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Work Day",
+			"item": [
+				{
+					"name": "Create Work Day [Admin]",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"02-05-2023\",\r\n    \"start_time\": \"02-05-2023 09:00:00\",\r\n    \"end_time\": \"02-05-2023 16:00:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/workday",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workday"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Workday History [Admin]",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/workday",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"workday"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Absensi",
+			"item": [
+				{
+					"name": "Check In [Employe]",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"02-05-2023\",\r\n    \"datetime\": \"02-05-2023 09:11:00\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/absensi/check-in",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"absensi",
+								"check-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check Out [Employe]",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"date\": \"02-05-2023\",\r\n    \"datetime\": \"02-05-2023 16:08:00\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/absensi/check-out",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"absensi",
+								"check-out"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "History Absensi [Employe]",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/absensi/history",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"absensi",
+								"history"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Izin Request",
+			"item": [
+				{
+					"name": "Create Izin [Employe]",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"start_date\": \"04-05-2023\",\r\n    \"end_date\": \"05-05-2023\",\r\n    \"note\": \"Liburan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/izin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"izin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All [Employe]",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/izin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"izin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Izin [Employe]",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"start_date\": \"03-05-2023\",\r\n    \"end_date\": \"03-05-2023\",\r\n    \"note\": \"Acara Penting\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/izin/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"izin",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "646097966b9d431dfb0095d3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete [Employe]",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/izin/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"izin",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "646054172195fd9e032b0a9a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All [Admin]",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/izin",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"izin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Status / Approval [Admin]",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"isApproved\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/izin/:id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"izin",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "6460dcdb5630f2f2853cbad9"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Report",
+			"item": [
+				{
+					"name": "Report All Employe [Admin]",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{admin_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/report?start_date=01-05-2020&end_date=30-05-2024",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"report"
+							],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "01-05-2020"
+								},
+								{
+									"key": "end_date",
+									"value": "30-05-2024"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
