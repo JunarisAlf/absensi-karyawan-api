@@ -6,7 +6,7 @@
  4. Create mongodb database: `absensiDB`
  5. Collection: `absensi, izinRequests, users, workDays`
  6. run `npm start`
- 7. Test on postman, download postman collection [here](www.test.fs)
+ 7. Test on postman, download postman collection [here](https://github.com/JunarisAlf/absensi-karyawan-api/blob/main/Absensi%20Karyawan.postman_collection.json)
  8. Import collection to Postman
  9. Pay atention on Environment Variable, there is 3 variable `base_url, admin_token, user_token`
  10. set `admin_token` using jwt that you get from login using admin account, and do same thing for `user_token` set it using jwt from employe login
